@@ -22,14 +22,14 @@ cd wp-agents/wp-mnemon
 bash install.sh
 
 # Custom Claude config dir (override via env var)
-CLAUDE_HOME=~/.some-other-dir bash install.sh
+CLAUDE_CONFIG_DIR=~/.some-other-dir bash install.sh
 ```
 
 To uninstall (keeps your plugin memory by default):
 
 ```bash
 bash uninstall.sh                                # → ~/.claude
-CLAUDE_HOME=~/.some-other-dir bash uninstall.sh   # → custom dir
+CLAUDE_CONFIG_DIR=~/.some-other-dir bash uninstall.sh   # → custom dir
 
 # To also delete all analyzed plugin docs:
 bash uninstall.sh --purge-memory

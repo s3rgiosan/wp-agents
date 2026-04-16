@@ -17,13 +17,19 @@ Clone the repo and run the install script from the `wp-mnemon` directory:
 ```bash
 git clone https://github.com/your-username/wp-agents.git
 cd wp-agents/wp-mnemon
+
+# Default → ~/.claude
 bash install.sh
+
+# Custom Claude config dir (override via env var)
+CLAUDE_HOME=~/.some-other-dir bash install.sh
 ```
 
 To uninstall (keeps your plugin memory by default):
 
 ```bash
-bash uninstall.sh
+bash uninstall.sh                                # → ~/.claude
+CLAUDE_HOME=~/.some-other-dir bash uninstall.sh   # → custom dir
 
 # To also delete all analyzed plugin docs:
 bash uninstall.sh --purge-memory

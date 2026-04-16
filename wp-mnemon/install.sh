@@ -1,35 +1,39 @@
 #!/usr/bin/env bash
-# install.sh — installs wp-mnemon into Claude Code global config
+# install.sh — installs wp-mnemon into a Claude config dir
+#
+# Usage:
+#   bash install.sh                              # → ~/.claude (default)
+#   CLAUDE_HOME=~/.some-other-dir bash install.sh # → custom config dir
 
 set -euo pipefail
 
-CLAUDE_DIR="${HOME}/.claude"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+CLAUDE_HOME="${CLAUDE_HOME:-$HOME/.claude}"
 
 echo ""
 echo "Installing wp-mnemon..."
 echo ""
 
 # Create directories if they don't exist
-mkdir -p "$CLAUDE_DIR/agents"
-mkdir -p "$CLAUDE_DIR/skills"
-mkdir -p "$CLAUDE_DIR/agent-memory/wp-mnemon/plugins"
+mkdir -p "$CLAUDE_HOME/agents"
+mkdir -p "$CLAUDE_HOME/skills"
+mkdir -p "$CLAUDE_HOME/agent-memory/wp-mnemon/plugins"
 
 # Copy agent definition
-cp "$SCRIPT_DIR/.claude/agents/wp-mnemon.md" "$CLAUDE_DIR/agents/wp-mnemon.md"
+cp "$SCRIPT_DIR/.claude/agents/wp-mnemon.md" "$CLAUDE_HOME/agents/wp-mnemon.md"
 echo "  ✓ Agent installed"
 
 # Copy skill (overwrite if exists)
-rm -rf "$CLAUDE_DIR/skills/wp-mnemon"
-cp -r "$SCRIPT_DIR/.claude/skills/wp-mnemon" "$CLAUDE_DIR/skills/wp-mnemon"
+rm -rf "$CLAUDE_HOME/skills/wp-mnemon"
+cp -r "$SCRIPT_DIR/.claude/skills/wp-mnemon" "$CLAUDE_HOME/skills/wp-mnemon"
 echo "  ✓ Skill installed"
 
 # Make scripts executable
-chmod +x "$CLAUDE_DIR/skills/wp-mnemon/scripts/"*.sh
+chmod +x "$CLAUDE_HOME/skills/wp-mnemon/scripts/"*.sh
 echo "  ✓ Scripts ready"
 
 # Create MEMORY.md index if it doesn't exist yet
-MEMORY_FILE="$CLAUDE_DIR/agent-memory/wp-mnemon/MEMORY.md"
+MEMORY_FILE="$CLAUDE_HOME/agent-memory/wp-mnemon/MEMORY.md"
 if [ ! -f "$MEMORY_FILE" ]; then
   cat > "$MEMORY_FILE" << 'EOF'
 # wp-mnemon — Plugin Knowledge Base

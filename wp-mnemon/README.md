@@ -15,7 +15,7 @@ every future session without re-reading code.
 Clone the repo and run the install script from the `wp-mnemon` directory:
 
 ```bash
-git clone https://github.com/your-username/wp-agents.git
+git clone https://github.com/s3rgiosan/wp-agents.git
 cd wp-agents/wp-mnemon
 
 # Default → ~/.claude

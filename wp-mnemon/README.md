@@ -12,17 +12,50 @@ every future session without re-reading code.
 
 ## Installation
 
-Clone the repo and run the install script from the `wp-mnemon` directory:
+### One-step (recommended)
+
+The subagent depends on the [`wp-mnemon` skill](https://github.com/s3rgiosan/wp-skills/tree/main/wp-mnemon) in the companion `wp-skills` repo. The installer detects whether the skill is present and offers to fetch it for you:
 
 ```bash
 git clone https://github.com/s3rgiosan/wp-agents.git
 cd wp-agents/wp-mnemon
 
-# Default → ~/.claude
+# Default → ~/.claude. Prompts to install the skill if it's missing.
 bash install.sh
 
 # Custom Claude config dir (override via env var)
 CLAUDE_CONFIG_DIR=~/.some-other-dir bash install.sh
+```
+
+If the skill is missing the installer asks `Install it now? [Y/n]`; on yes it shallow-clones `wp-skills` into a temp dir, runs the skill's installer, and cleans up.
+
+### Flags
+
+| Flag | When to use |
+|---|---|
+| `--yes` / `-y` | Skip the prompt and auto-install the skill. Use in CI or non-interactive shells. |
+| `--no-skill-install` | Skip auto-install entirely. Fails fast with manual instructions if the skill is missing. Use when you manage skills yourself. |
+
+```bash
+bash install.sh --yes                    # auto-fetch on missing skill (CI / scripts)
+bash install.sh --no-skill-install       # opt out; fail-fast if missing
+```
+
+The installer falls back to manual instructions automatically when `git` isn't on `PATH`, when stdin isn't a TTY (and `--yes` isn't set), or when `--no-skill-install` is passed.
+
+### Manual two-step (alternative)
+
+If you'd rather manage each repo explicitly:
+
+```bash
+# 1) Install the skill from wp-skills
+git clone https://github.com/s3rgiosan/wp-skills.git
+cd wp-skills/wp-mnemon && bash install.sh
+
+# 2) Install the subagent from wp-agents
+cd ../..
+git clone https://github.com/s3rgiosan/wp-agents.git
+cd wp-agents/wp-mnemon && bash install.sh
 ```
 
 To uninstall (keeps your plugin memory by default):
@@ -102,13 +135,8 @@ wp-agents/
     ├── uninstall.sh
     ├── README.md                         ← you are here
     └── .claude/
-        ├── agents/
-        │   └── wp-mnemon.md              ← subagent definition
-        └── skills/
-            └── wp-mnemon/
-                ├── SKILL.md              ← 12-phase deep analysis instructions
-                └── scripts/
-                    ├── scan_hooks.sh     ← grep all hook patterns (local plugins)
-                    ├── scan_data.sh      ← grep CPTs, meta, options, DB (local plugins)
-                    └── scan_classes.sh   ← grep class architecture (local plugins)
+        └── agents/
+            └── wp-mnemon.md              ← subagent definition (depends on wp-mnemon skill)
 ```
+
+The skill (`SKILL.md` + `scripts/`) lives in the [`wp-skills`](https://github.com/s3rgiosan/wp-skills) repo under `wp-mnemon/`. Centralising skills there means the subagent here stays focused on the memory + agent contract, while the analysis instructions and helper scripts can be invoked standalone from any Claude Code session.

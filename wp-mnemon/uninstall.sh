@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
-# uninstall.sh — removes wp-mnemon from a Claude config dir
+# uninstall.sh — removes the wp-mnemon subagent from a Claude config dir
 # Your plugin memory is preserved unless you pass --purge-memory
+#
+# This does NOT remove the wp-mnemon skill (managed separately by
+# wp-skills/wp-mnemon). To remove that too, run its uninstall.sh.
 #
 # Usage:
 #   bash uninstall.sh                                          # → ~/.claude
@@ -19,14 +22,11 @@ for arg in "$@"; do
 done
 
 echo ""
-echo "Uninstalling wp-mnemon..."
+echo "Uninstalling wp-mnemon subagent..."
 echo ""
 
 rm -f "$CLAUDE_CONFIG_DIR/agents/wp-mnemon.md"
 echo "  ✓ Agent removed"
-
-rm -rf "$CLAUDE_CONFIG_DIR/skills/wp-mnemon"
-echo "  ✓ Skill removed"
 
 if [ "$PURGE_MEMORY" = true ]; then
   rm -rf "$CLAUDE_CONFIG_DIR/agent-memory/wp-mnemon"
@@ -36,6 +36,9 @@ else
   echo "    (run with --purge-memory to delete it)"
 fi
 
+echo ""
+echo "Note: the wp-mnemon skill at $CLAUDE_CONFIG_DIR/skills/wp-mnemon was NOT removed."
+echo "To remove it too, run wp-skills/wp-mnemon/uninstall.sh."
 echo ""
 echo "Done."
 echo ""

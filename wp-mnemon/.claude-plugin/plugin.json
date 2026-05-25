@@ -1,0 +1,16 @@
+{
+  "name": "wp-mnemon",
+  "version": "1.0.0",
+  "description": "Subagent for deep architectural analysis of WordPress plugins with persistent memory. Depends on the wp-mnemon skill from the wp-skills marketplace.",
+  "author": {
+    "name": "Sérgio Santos",
+    "url": "https://github.com/s3rgiosan"
+  },
+  "homepage": "https://github.com/s3rgiosan/wp-agents/tree/main/wp-mnemon",
+  "repository": "https://github.com/s3rgiosan/wp-agents",
+  "license": "MIT",
+  "keywords": ["wordpress", "plugin-analysis", "subagent", "agent-memory"],
+  "dependencies": [
+    { "name": "wp-mnemon", "marketplace": "wp-skills" }
+  ]
+}

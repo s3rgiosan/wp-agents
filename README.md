@@ -37,11 +37,45 @@ Deep-analyzes WordPress plugins and writes permanent documentation into Claude's
 
 ---
 
+## Install via Claude Code plugin marketplace (recommended)
+
+`wp-agents` is a Claude Code plugin marketplace. Add it once, then install agents individually:
+
+```
+/plugin marketplace add s3rgiosan/wp-agents
+/plugin install wp-mnemon@wp-agents
+```
+
+The `wp-mnemon` plugin declares a cross-marketplace dependency on the `wp-mnemon` skill in [`wp-skills`](https://github.com/s3rgiosan/wp-skills). Claude Code installs both pieces automatically — no second `marketplace add` needed.
+
+Or wire it into `settings.json`:
+
+```json
+{
+  "extraKnownMarketplaces": {
+    "wp-agents": { "source": { "source": "github", "repo": "s3rgiosan/wp-agents" } },
+    "wp-skills": { "source": { "source": "github", "repo": "s3rgiosan/wp-skills" } }
+  },
+  "enabledPlugins": {
+    "wp-mnemon@wp-agents": true,
+    "wp-mnemon@wp-skills": true
+  }
+}
+```
+
+---
+
+## Install via shell script (fallback)
+
+For older Claude Code builds or scripted environments. Each agent's directory ships an `install.sh` that auto-fetches its skill dependency. See the per-agent README.
+
+---
+
 ## Requirements
 
-- [Claude Code](https://claude.ai/code)
-- Bash (macOS, Linux, or WSL on Windows)
-- `curl` (for GitHub API access)
+- [Claude Code](https://claude.ai/code) — v2.1.110+ for plugin marketplace support.
+- Bash (macOS, Linux, or WSL on Windows) for fallback `install.sh`.
+- `curl` (for GitHub API access during plugin analysis).
 
 ---
 
@@ -61,17 +95,16 @@ Each agent lives in its own directory and follows the same structure:
 
 ```
 agent-name/
-├── install.sh
+├── .claude-plugin/
+│   └── plugin.json              ← plugin manifest (declares dependencies)
+├── agents/
+│   └── agent-name.md
+├── install.sh                   ← fallback installer
 ├── uninstall.sh
-├── README.md
-└── .claude/
-    ├── agents/
-    │   └── agent-name.md
-    └── skills/
-        └── agent-name/
-            ├── SKILL.md
-            └── scripts/
+└── README.md
 ```
+
+Skills consumed by the agent live in [`wp-skills`](https://github.com/s3rgiosan/wp-skills) and are declared in `plugin.json` via `dependencies`.
 
 ---
 

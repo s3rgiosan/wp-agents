@@ -1,0 +1,17 @@
+{
+  "name": "wp-agents",
+  "owner": {
+    "name": "Sérgio Santos"
+  },
+  "metadata": {
+    "description": "Claude Code subagents for WordPress developers (with persistent agent memory)",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "wp-mnemon",
+      "source": "./wp-mnemon",
+      "description": "Subagent for deep architectural analysis of WordPress plugins with persistent memory. Writes structured docs to ~/.claude/agent-memory/wp-mnemon/ so future sessions can answer plugin questions without re-reading code."
+    }
+  ]
+}

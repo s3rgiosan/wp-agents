@@ -12,9 +12,33 @@ every future session without re-reading code.
 
 ## Installation
 
-### One-step (recommended)
+### Via Claude Code plugin marketplace (recommended)
 
-The subagent depends on the [`wp-mnemon` skill](https://github.com/s3rgiosan/wp-skills/tree/main/wp-mnemon) in the companion `wp-skills` repo. The installer detects whether the skill is present and offers to fetch it for you:
+```
+/plugin marketplace add s3rgiosan/wp-agents
+/plugin install wp-mnemon@wp-agents
+```
+
+The plugin declares a cross-marketplace dependency on `wp-mnemon@wp-skills`. Claude Code installs both automatically; you don't need to add the `wp-skills` marketplace yourself, but the skill dependency must be enabled (run `/plugin` and confirm both show as enabled).
+
+Or wire via `settings.json`:
+
+```json
+{
+  "extraKnownMarketplaces": {
+    "wp-agents": { "source": { "source": "github", "repo": "s3rgiosan/wp-agents" } },
+    "wp-skills": { "source": { "source": "github", "repo": "s3rgiosan/wp-skills" } }
+  },
+  "enabledPlugins": {
+    "wp-mnemon@wp-agents": true,
+    "wp-mnemon@wp-skills": true
+  }
+}
+```
+
+### Via shell script (fallback)
+
+The subagent depends on the [`wp-mnemon` skill](https://github.com/s3rgiosan/wp-skills/tree/main/wp-mnemon) from the `wp-skills` repo. The installer detects whether the skill is present and offers to fetch it for you:
 
 ```bash
 git clone https://github.com/s3rgiosan/wp-agents.git
@@ -130,13 +154,16 @@ integrations, and practical code examples for extending the plugin.
 
 ```
 wp-agents/
+├── .claude-plugin/
+│   └── marketplace.json                  ← marketplace manifest for the wp-agents repo
 └── wp-mnemon/
-    ├── install.sh
+    ├── .claude-plugin/
+    │   └── plugin.json                   ← declares dependency on wp-mnemon@wp-skills
+    ├── agents/
+    │   └── wp-mnemon.md                  ← subagent definition
+    ├── install.sh                        ← fallback installer
     ├── uninstall.sh
-    ├── README.md                         ← you are here
-    └── .claude/
-        └── agents/
-            └── wp-mnemon.md              ← subagent definition (depends on wp-mnemon skill)
+    └── README.md                         ← you are here
 ```
 
 The skill (`SKILL.md` + `scripts/`) lives in the [`wp-skills`](https://github.com/s3rgiosan/wp-skills) repo under `wp-mnemon/`. Centralising skills there means the subagent here stays focused on the memory + agent contract, while the analysis instructions and helper scripts can be invoked standalone from any Claude Code session.

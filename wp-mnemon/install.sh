@@ -90,7 +90,7 @@ mkdir -p "$CLAUDE_CONFIG_DIR/agents"
 mkdir -p "$CLAUDE_CONFIG_DIR/agent-memory/wp-mnemon/plugins"
 
 # Copy agent definition
-cp "$SCRIPT_DIR/.claude/agents/wp-mnemon.md" "$CLAUDE_CONFIG_DIR/agents/wp-mnemon.md"
+cp "$SCRIPT_DIR/agents/wp-mnemon.md" "$CLAUDE_CONFIG_DIR/agents/wp-mnemon.md"
 echo "  ✓ Agent installed → $CLAUDE_CONFIG_DIR/agents/wp-mnemon.md"
 
 # Create MEMORY.md index if it doesn't exist yet

@@ -16,22 +16,22 @@ every future session without re-reading code.
 
 ```
 /plugin marketplace add s3rgiosan/wp-agents
-/plugin install wp-mnemon@wp-agents
+/plugin install wp-mnemon@s3rgiosan-wp-agents
 ```
 
-The plugin declares a cross-marketplace dependency on `wp-mnemon@wp-skills`. Claude Code installs both automatically; you don't need to add the `wp-skills` marketplace yourself, but the skill dependency must be enabled (run `/plugin` and confirm both show as enabled).
+The plugin declares a cross-marketplace dependency on `wp-mnemon@s3rgiosan-wp-skills`. Claude Code installs both automatically; you don't need to add the `wp-skills` marketplace yourself, but the skill dependency must be enabled (run `/plugin` and confirm both show as enabled).
 
 Or wire via `settings.json`:
 
 ```json
 {
   "extraKnownMarketplaces": {
-    "wp-agents": { "source": { "source": "github", "repo": "s3rgiosan/wp-agents" } },
-    "wp-skills": { "source": { "source": "github", "repo": "s3rgiosan/wp-skills" } }
+    "s3rgiosan-wp-agents": { "source": { "source": "github", "repo": "s3rgiosan/wp-agents" } },
+    "s3rgiosan-wp-skills": { "source": { "source": "github", "repo": "s3rgiosan/wp-skills" } }
   },
   "enabledPlugins": {
-    "wp-mnemon@wp-agents": true,
-    "wp-mnemon@wp-skills": true
+    "wp-mnemon@s3rgiosan-wp-agents": true,
+    "wp-mnemon@s3rgiosan-wp-skills": true
   }
 }
 ```
@@ -158,7 +158,7 @@ wp-agents/
 │   └── marketplace.json                  ← marketplace manifest for the wp-agents repo
 └── wp-mnemon/
     ├── .claude-plugin/
-    │   └── plugin.json                   ← declares dependency on wp-mnemon@wp-skills
+    │   └── plugin.json                   ← declares dependency on wp-mnemon@s3rgiosan-wp-skills
     ├── agents/
     │   └── wp-mnemon.md                  ← subagent definition
     ├── install.sh                        ← fallback installer

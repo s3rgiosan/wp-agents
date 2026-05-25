@@ -11,6 +11,6 @@
   "license": "MIT",
   "keywords": ["wordpress", "plugin-analysis", "subagent", "agent-memory"],
   "dependencies": [
-    { "name": "wp-mnemon", "marketplace": "wp-skills" }
+    { "name": "wp-mnemon", "marketplace": "s3rgiosan-wp-skills" }
   ]
 }

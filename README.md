@@ -43,7 +43,7 @@ Deep-analyzes WordPress plugins and writes permanent documentation into Claude's
 
 ```
 /plugin marketplace add s3rgiosan/wp-agents
-/plugin install wp-mnemon@wp-agents
+/plugin install wp-mnemon@s3rgiosan-wp-agents
 ```
 
 The `wp-mnemon` plugin declares a cross-marketplace dependency on the `wp-mnemon` skill in [`wp-skills`](https://github.com/s3rgiosan/wp-skills). Claude Code installs both pieces automatically — no second `marketplace add` needed.
@@ -53,12 +53,12 @@ Or wire it into `settings.json`:
 ```json
 {
   "extraKnownMarketplaces": {
-    "wp-agents": { "source": { "source": "github", "repo": "s3rgiosan/wp-agents" } },
-    "wp-skills": { "source": { "source": "github", "repo": "s3rgiosan/wp-skills" } }
+    "s3rgiosan-wp-agents": { "source": { "source": "github", "repo": "s3rgiosan/wp-agents" } },
+    "s3rgiosan-wp-skills": { "source": { "source": "github", "repo": "s3rgiosan/wp-skills" } }
   },
   "enabledPlugins": {
-    "wp-mnemon@wp-agents": true,
-    "wp-mnemon@wp-skills": true
+    "wp-mnemon@s3rgiosan-wp-agents": true,
+    "wp-mnemon@s3rgiosan-wp-skills": true
   }
 }
 ```

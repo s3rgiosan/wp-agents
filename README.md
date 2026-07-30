@@ -63,6 +63,23 @@ Or wire it into `settings.json`:
 }
 ```
 
+### Keep it updated
+
+Auto-update is **off by default** for third-party marketplaces. Turn it on once — and do it for both marketplaces, since `wp-mnemon` spans them:
+
+`/plugin` → **Marketplaces** tab → select `s3rgiosan-wp-agents` (then `s3rgiosan-wp-skills`) → **Enable auto-update**
+
+Claude Code then refreshes the marketplaces and installed plugins in the background shortly after startup (random delay of up to 10 minutes), and prompts you to run `/reload-plugins`.
+
+Without it, update by hand:
+
+```
+/plugin marketplace update s3rgiosan-wp-agents
+/plugin marketplace update s3rgiosan-wp-skills
+/plugin update
+/reload-plugins
+```
+
 ---
 
 ## Install via shell script (fallback)

@@ -130,16 +130,21 @@ Open any Claude Code session and invoke naturally:
 ## What Gets Written to Memory
 
 ```
-~/.claude/agent-memory/wp-mnemon/
-├── MEMORY.md                           ← index of all analyzed plugins
+<claude config dir>/agent-memory/wp-mnemon/
+├── MEMORY.md                           ← index: one row per plugin slug and version
 └── plugins/
     └── {plugin-slug}/
-        ├── overview.md                 ← what it does, bootstrap flow, execution flows, UI map
-        ├── architecture.md             ← class hierarchy, namespaces, autoloading, dependencies
-        ├── hooks.md                    ← all hooks registered, exposed, and removed with context
-        ├── data.md                     ← CPTs, meta, options, DB tables, REST, assets, cron
-        └── extending.md               ← extensibility patterns, key extension points, code examples
+        └── {version}/                  ← plugin header Version value, or "unversioned"
+            ├── overview.md             ← what it does, bootstrap flow, execution flows, UI map
+            ├── architecture.md         ← class hierarchy, namespaces, autoloading, dependencies
+            ├── hooks.md                ← all hooks registered, exposed, and removed with context
+            ├── data.md                 ← CPTs, meta, options, DB tables, REST, assets, cron
+            └── extending.md            ← extensibility patterns, key extension points, code examples
 ```
+
+`<claude config dir>` is `$CLAUDE_CONFIG_DIR` when set, otherwise `~/.claude`.
+
+Each plugin version is analyzed once. When docs for the same slug and version exist, the agent reuses them. Ask it to re-analyze or refresh to overwrite that version. A different version gets its own folder and the other versions stay on record, because versions can differ in hooks, data, and behavior. Docs written by earlier runs directly in `plugins/{slug}/` are moved into their version folder on the next run.
 
 Each plugin gets a deep analysis covering: what it does and who it's for, full
 class architecture and design patterns, bootstrap and initialization flow,

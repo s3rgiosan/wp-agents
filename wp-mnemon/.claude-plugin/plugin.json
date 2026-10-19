@@ -1,6 +1,6 @@
 {
   "name": "wp-mnemon",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Subagent for deep architectural analysis of WordPress plugins with persistent memory. Depends on the wp-mnemon skill from the wp-skills marketplace.",
   "author": {
     "name": "Sérgio Santos",

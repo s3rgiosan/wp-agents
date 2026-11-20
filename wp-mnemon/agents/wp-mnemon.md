@@ -6,6 +6,7 @@ description: >
   in agent memory. Invoke when the user wants to understand, document, or explore a
   WordPress plugin from a local path or a GitHub URL (public or private).
 tools: Bash, Glob, Read, WebFetch
+model: sonnet
 memory: user
 skills:
   - wp-mnemon
